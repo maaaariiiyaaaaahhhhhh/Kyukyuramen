@@ -1,0 +1,80 @@
+<!-- ============================================================
+     Admin.html — DIFF PATCH
+     Only the Menu Item Modal section needs updating.
+     Replace the existing modal div (id="menu-item-modal") with this.
+     ============================================================ -->
+
+<!-- MENU ITEM MODAL — UPDATED (replaces original in Admin.html) -->
+<div id="menu-item-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);backdrop-filter:blur(4px);z-index:9000;align-items:center;justify-content:center;padding:20px;">
+  <div style="background:var(--bg);border-radius:24px;padding:36px 40px;width:100%;max-width:480px;position:relative;box-shadow:0 24px 80px rgba(56,0,0,0.25);display:flex;flex-direction:column;gap:16px;max-height:90vh;overflow-y:auto;">
+    <button onclick="closeMenuItemModal()" style="position:absolute;top:16px;right:16px;width:32px;height:32px;background:rgba(56,0,0,0.06);border:none;border-radius:8px;cursor:pointer;font-size:16px;">✕</button>
+    <h3 id="menu-modal-title" style="font-size:18px;font-weight:800;color:var(--black);margin:0;">Add Menu Item</h3>
+    <input type="hidden" id="mi-id"/>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <!-- Name -->
+      <div style="display:flex;flex-direction:column;gap:5px;grid-column:1/-1;">
+        <label style="font-size:12px;font-weight:600;color:var(--brand);text-transform:uppercase;">Name</label>
+        <input id="mi-name" type="text" class="auth-input" placeholder="Spicy Ichiban"/>
+      </div>
+
+      <!-- Emoji -->
+      <div style="display:flex;flex-direction:column;gap:5px;">
+        <label style="font-size:12px;font-weight:600;color:var(--brand);text-transform:uppercase;">Emoji</label>
+        <input id="mi-emoji" type="text" class="auth-input" placeholder="🍜"/>
+      </div>
+
+      <!-- Price -->
+      <div style="display:flex;flex-direction:column;gap:5px;">
+        <label style="font-size:12px;font-weight:600;color:var(--brand);text-transform:uppercase;">Price (PHP)</label>
+        <input id="mi-price" type="number" class="auth-input" placeholder="99"/>
+      </div>
+
+      <!-- Category -->
+      <div style="display:flex;flex-direction:column;gap:5px;">
+        <label style="font-size:12px;font-weight:600;color:var(--brand);text-transform:uppercase;">Category</label>
+        <select id="mi-category" class="auth-input">
+          <option value="ramen">Ramen</option>
+          <option value="rice_bowls">Rice Bowls</option>
+          <option value="side_dish">Side Dish</option>
+          <option value="drinks">Drinks</option>
+        </select>
+      </div>
+
+      <!-- Description -->
+      <div style="display:flex;flex-direction:column;gap:5px;grid-column:1/-1;">
+        <label style="font-size:12px;font-weight:600;color:var(--brand);text-transform:uppercase;">Description</label>
+        <textarea id="mi-desc" class="auth-input" rows="3" placeholder="Describe the dish..."></textarea>
+      </div>
+
+      <!-- ▼ NEW: Image URL field with live preview -->
+      <div style="display:flex;flex-direction:column;gap:5px;grid-column:1/-1;">
+        <label style="font-size:12px;font-weight:600;color:var(--brand);text-transform:uppercase;">
+          Image URL <span style="font-weight:400;text-transform:none;opacity:0.6;">(optional — paste a direct image link)</span>
+        </label>
+        <div style="display:flex;gap:10px;align-items:center;">
+          <input id="mi-imageurl" type="url" class="auth-input" placeholder="https://example.com/ramen.jpg"
+            oninput="updateImagePreview(this.value)" style="flex:1;"/>
+          <div id="mi-img-preview" style="min-width:64px;"></div>
+        </div>
+      </div>
+
+      <!-- Available toggle -->
+      <div style="display:flex;align-items:center;gap:10px;grid-column:1/-1;">
+        <input id="mi-available" type="checkbox" checked style="width:16px;height:16px;"/>
+        <label style="font-size:13px;font-weight:600;color:var(--brand);">Available</label>
+      </div>
+    </div>
+
+    <div id="mi-error" style="display:none;font-size:12px;font-weight:600;color:var(--accent);background:rgba(171,0,0,0.07);border:1px solid rgba(171,0,0,0.15);border-radius:8px;padding:8px 12px;"></div>
+
+    <button id="mi-submit-btn" onclick="saveMenuItem()" class="btn-primary-custom" style="justify-content:center;">
+      <i class="bi bi-check-lg"></i> Save Item
+    </button>
+  </div>
+</div>
+
+<!--
+  Also update the Admin.html table header for menu-items from 6 to 7 cols:
+  <thead><tr><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Available</th><th>Action</th></tr></thead>
+-->

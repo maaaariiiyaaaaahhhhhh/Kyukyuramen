@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About – Kyukyu Ramen 99</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="Styles.css"/>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header" id="site-header">
+    <div class="noodle-bg"></div>
+    <div class="header-inner">
+      <a href="index.html" class="logo-wrap">
+        <div class="logo-mark">九九</div>
+        <div class="logo-text">
+          <span class="logo-main">KyuKyu</span>
+          <span class="logo-sub">RAMEN 99</span>
+        </div>
+      </a>
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="menu.html"  class="nav-link">Menu</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+      <!-- Header action buttons -->
+      <div class="header-actions">
+        <button class="user-btn" id="user-auth-btn" title="Login / Sign Up">
+          <i class="bi bi-person"></i>
+        </button>
+        <button class="cart-btn" onclick="window.location.href='menu.html'">
+          <i class="bi bi-bag-fill"></i>
+          <span class="cart-badge" id="cart-count">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- PAGE BANNER -->
+  <div class="page-banner">
+    <h2>Our Story</h2>
+    <p>Born from a love of ramen and a belief that everyone deserves a great bowl.</p>
+  </div>
+
+  <!-- BRAND STORY -->
+  <section class="about-section">
+    <div class="about-flex">
+      <div class="about-submark">
+        <div class="submark-circle">
+          <div class="submark-inner">
+            <span class="submark-kanji">九九</span>
+            <span class="submark-tagline">RAMEN 99</span>
+          </div>
+        </div>
+        <div class="submark-rings">
+          <div class="sm-ring r1"></div>
+          <div class="sm-ring r2"></div>
+        </div>
+      </div>
+      <div class="about-content">
+        <div class="about-eyebrow">Our Mission</div>
+        <h2 class="about-headline">Every Bowl, <span class="accent-text">₱99.</span><br/>No Compromises.</h2>
+        <p class="about-body">KyuKyu Ramen 99 started as a late-night idea between two broke college students who were obsessed with ramen but couldn't afford the ₱350+ bowls at mall restaurants. We thought: <em>why can't good ramen be accessible?</em></p>
+        <p class="about-body">We spent two years testing broths, sourcing noodles, and perfecting recipes. We discovered that with the right techniques — slow simmering, quality bases, smart sourcing — you can serve restaurant-quality ramen at an impossibly fair price.</p>
+        <p class="about-body">Today, KyuKyu delivers hundreds of bowls daily across Metro Manila. Our promise is simple: every bowl costs ₱99, every bowl is made with care, and every customer deserves to feel like they got a great deal — because they did.</p>
+        <div class="about-mission-box">
+          <p>"Premium ramen for everyone. Not just those who can afford it."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="values-section">
+    <div class="section-header">
+      <h2 class="section-title">What We Stand For</h2>
+    </div>
+    <div class="values-flex">
+      <div class="value-card">
+        <div class="value-num">01</div>
+        <h4>Accessibility</h4>
+        <p>Great food should not be a luxury. ₱99 is our commitment to everyone — students, workers, families.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-num">02</div>
+        <h4>Authenticity</h4>
+        <p>We research each broth style — tonkotsu, shio, shoyu, miso — and execute it with respect for Japanese ramen tradition.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-num">03</div>
+        <h4>Speed</h4>
+        <p>30-minute delivery isn't just a target — it's a standard. Ramen waits for no one.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-num">04</div>
+        <h4>Community</h4>
+        <p>We are Filipino ramen for Filipinos. Every order supports our local kitchen team and delivery partners.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="team-section">
+    <div class="section-header">
+      <h2 class="section-title">The Founders</h2>
+    </div>
+    <div class="team-flex">
+      <div class="team-card">
+        <div class="team-avatar">🧑‍🍳</div>
+        <h4>Carlos "Kyu" Reyes</h4>
+        <span class="team-role">Head of Kitchen & Recipe Dev</span>
+        <p>Former culinary student turned ramen obsessive. Responsible for every broth formulation and noodle spec.</p>
+      </div>
+      <div class="team-card featured-team">
+        <div class="team-avatar">👩‍💼</div>
+        <h4>Diane "Nana" Santos</h4>
+        <span class="team-role">Co-Founder & Operations</span>
+        <p>The brain behind the ₱99 model. Built the supply chain and delivery system from scratch using a bike and spreadsheets.</p>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">👨‍💻</div>
+        <h4>Paolo Lim</h4>
+        <span class="team-role">Tech & Growth Lead</span>
+        <p>Built our ordering platform, manages digital marketing, and is personally responsible for way too many late-night ramen posts.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-noodle-bg"></div>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <div class="logo-mark sm">九九</div>
+          <div class="logo-text">
+            <span class="logo-main">KyuKyu</span>
+            <span class="logo-sub">RAMEN 99</span>
+          </div>
+        </div>
+        <p class="footer-tagline">Bold Broth. Real Ramen. Always ₱99.</p>
+        <div class="footer-social">
+          <a href="#"><i class="bi bi-facebook"></i></a>
+          <a href="#"><i class="bi bi-instagram"></i></a>
+          <a href="#"><i class="bi bi-tiktok"></i></a>
+          <a href="#"><i class="bi bi-twitter-x"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h5>Navigate</h5>
+        <a href="index.html">Home</a>
+        <a href="menu.html">Menu</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-links">
+        <h5>Hours</h5>
+        <span>Mon–Fri: 11AM – 10PM</span>
+        <span>Sat–Sun: 10AM – 11PM</span>
+        <span>Holidays: 12PM – 9PM</span>
+      </div>
+      <div class="footer-links">
+        <h5>Contact</h5>
+        <span><i class="bi bi-telephone-fill"></i> 0917-999-9999</span>
+        <span><i class="bi bi-envelope-fill"></i> hello@kyukyuramen.ph</span>
+        <span><i class="bi bi-geo-alt-fill"></i> Metro Manila</span>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 KyuKyu Ramen 99. All rights reserved.</span>
+      <span>Made with 🍜 in the Philippines</span>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="cart.js"></script>
+  <script src="auth.js"></script>
+  <script>updateCartBadge();</script>
+</body>
+</html>

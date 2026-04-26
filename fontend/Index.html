@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kyukyu Ramen 99 – Delivery</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="Styles.css"/>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header" id="site-header">
+    <div class="noodle-bg"></div>
+    <div class="header-inner">
+      <a href="index.html" class="logo-wrap">
+        <div class="logo-mark">九九</div>
+        <div class="logo-text">
+          <span class="logo-main">KyuKyu</span>
+          <span class="logo-sub">RAMEN 99</span>
+        </div>
+      </a>
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="menu.html"  class="nav-link">Menu</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+      <!-- Header action buttons -->
+      <div class="header-actions">
+        <button class="user-btn" id="user-auth-btn" title="Login / Sign Up">
+          <i class="bi bi-person"></i>
+        </button>
+        <button class="cart-btn" onclick="window.location.href='menu.html'">
+          <i class="bi bi-bag-fill"></i>
+          <span class="cart-badge" id="cart-count">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <div class="hero-eyebrow">🍜 Now Delivering Near You</div>
+      <h1 class="hero-title">Bold Broth.<br/><span class="accent-text">Real Ramen.</span><br/>Always ₱99.</h1>
+      <p class="hero-desc">Authentic Japanese-inspired ramen crafted with slow-simmered broths, hand-pulled noodles, and toppings that slap. Delivered hot to your door.</p>
+      <div class="hero-cta">
+        <a href="menu.html" class="btn-primary-custom">Order Now <i class="bi bi-arrow-right-short"></i></a>
+        <a href="about.html" class="btn-ghost-custom">Our Story</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item"><span class="stat-num">₱99</span><span class="stat-label">Every Bowl</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat-item"><span class="stat-num">10+</span><span class="stat-label">Menu Items</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat-item"><span class="stat-num">30min</span><span class="stat-label">Avg Delivery</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="bowl-ring ring-1"></div>
+      <div class="bowl-ring ring-2"></div>
+      <div class="bowl-ring ring-3"></div>
+      <div class="hero-bowl-img">
+        <div class="bowl-emoji-big">🍜</div>
+      </div>
+      <div class="floating-tag tag-1"><i class="bi bi-fire"></i> Spicy!</div>
+      <div class="floating-tag tag-2"><i class="bi bi-star-fill"></i> Fan Fave</div>
+      <div class="floating-tag tag-3">🥚 Soft Egg</div>
+    </div>
+  </section>
+
+  <!-- WHY KYUKYU -->
+  <section class="quick-section">
+    <div class="section-header">
+      <h2 class="section-title">Why KyuKyu?</h2>
+      <p class="section-sub">We believe great ramen should never break the bank.</p>
+    </div>
+    <div class="cards-flex">
+      <div class="quick-card">
+        <div class="card-icon-wrap"><i class="bi bi-lightning-charge-fill"></i></div>
+        <h3>Fast Delivery</h3>
+        <p>Hot ramen at your door in 30 minutes or less — we don't let your noodles get soggy.</p>
+      </div>
+      <div class="quick-card featured-card">
+        <div class="card-badge">Our Promise</div>
+        <div class="card-icon-wrap"><i class="bi bi-tag-fill"></i></div>
+        <h3>Always ₱99</h3>
+        <p>Every single bowl. Every single day. No hidden fees, no surge pricing. Just ramen.</p>
+      </div>
+      <div class="quick-card">
+        <div class="card-icon-wrap"><i class="bi bi-award-fill"></i></div>
+        <h3>Premium Quality</h3>
+        <p>12-hour simmered broths, springy noodles, and fresh toppings — no shortcuts.</p>
+      </div>
+      <div class="quick-card">
+        <div class="card-icon-wrap"><i class="bi bi-heart-fill"></i></div>
+        <h3>Made with Love</h3>
+        <p>Every bowl is prepared by our kitchen team who live and breathe ramen culture.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED MENU PREVIEW -->
+  <section class="featured-section">
+    <div class="section-header">
+      <h2 class="section-title">Fan Favorites</h2>
+      <p class="section-sub">These bowls keep our customers coming back.</p>
+    </div>
+    <div class="featured-flex">
+      <div class="featured-item">
+        <div class="feat-img">🏆</div>
+        <div class="feat-info">
+          <h4>Ichiban</h4>
+          <p>Umami-forward broth with layered toppings — the go-to for first-timers</p>
+          <span class="feat-price">₱99</span>
+        </div>
+        <a href="menu.html" class="feat-order-btn">Order <i class="bi bi-plus-circle-fill"></i></a>
+      </div>
+      <div class="featured-item">
+        <div class="feat-img">🍜</div>
+        <div class="feat-info">
+          <h4>Kyu Kyu</h4>
+          <p>Signature pork-chicken blend broth, noodles, nori, bamboo, soft egg</p>
+          <span class="feat-price">₱99</span>
+        </div>
+        <a href="menu.html" class="feat-order-btn">Order <i class="bi bi-plus-circle-fill"></i></a>
+      </div>
+      <div class="featured-item">
+        <div class="feat-img">🥟</div>
+        <div class="feat-info">
+          <h4>Gyoza</h4>
+          <p>Pan-fried pork & cabbage dumplings with ponzu dipping sauce</p>
+          <span class="feat-price">₱79</span>
+        </div>
+        <a href="menu.html" class="feat-order-btn">Order <i class="bi bi-plus-circle-fill"></i></a>
+      </div>
+    </div>
+    <div class="view-all-wrap">
+      <a href="menu.html" class="btn-primary-custom">View Full Menu <i class="bi bi-arrow-right-short"></i></a>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testi-section">
+    <div class="testi-noodle-bg"></div>
+    <div class="section-header">
+      <h2 class="section-title light-title">What Customers Say</h2>
+    </div>
+    <div class="testi-flex">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p>"The Ichiban is unreal. I've been ordering every week for 3 months straight. ₱99 is a steal!"</p>
+        <div class="testi-author">— Maria S., Quezon City</div>
+      </div>
+      <div class="testi-card testi-featured">
+        <div class="testi-stars">★★★★★</div>
+        <p>"Finally, ramen that tastes authentic AND is affordable. Delivery was super fast, arrived still steaming."</p>
+        <div class="testi-author">— Jom R., Makati</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p>"The Cheesy Tonkotsu is my personality now. My whole office orders from KyuKyu every Friday."</p>
+        <div class="testi-author">— Kaye T., BGC</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-noodle-bg"></div>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <div class="logo-mark sm">九九</div>
+          <div class="logo-text">
+            <span class="logo-main">KyuKyu</span>
+            <span class="logo-sub">RAMEN 99</span>
+          </div>
+        </div>
+        <p class="footer-tagline">Bold Broth. Real Ramen. Always ₱99.</p>
+        <div class="footer-social">
+          <a href="#"><i class="bi bi-facebook"></i></a>
+          <a href="#"><i class="bi bi-instagram"></i></a>
+          <a href="#"><i class="bi bi-tiktok"></i></a>
+          <a href="#"><i class="bi bi-twitter-x"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h5>Navigate</h5>
+        <a href="index.html">Home</a>
+        <a href="menu.html">Menu</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-links">
+        <h5>Hours</h5>
+        <span>Mon–Fri: 11AM – 10PM</span>
+        <span>Sat–Sun: 10AM – 11PM</span>
+        <span>Holidays: 12PM – 9PM</span>
+      </div>
+      <div class="footer-links">
+        <h5>Contact</h5>
+        <span><i class="bi bi-telephone-fill"></i> 0917-999-9999</span>
+        <span><i class="bi bi-envelope-fill"></i> hello@kyukyuramen.ph</span>
+        <span><i class="bi bi-geo-alt-fill"></i> Metro Manila</span>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 KyuKyu Ramen 99. All rights reserved.</span>
+      <span>Made with 🍜 in the Philippines</span>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="cart.js"></script>
+  <script src="auth.js"></script>
+  <script>updateCartBadge();</script>
+</body>
+</html>

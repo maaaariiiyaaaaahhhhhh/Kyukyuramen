@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin – Kyukyu Ramen 99</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="Styles.css"/>
+</head>
+<body class="admin-body">
+
+  <!-- ADMIN HEADER -->
+  <header class="admin-header">
+    <div class="admin-header-inner">
+      <a href="index.html" class="logo-wrap">
+        <div class="logo-mark sm">九九</div>
+        <div class="logo-text">
+          <span class="logo-main">KyuKyu</span>
+          <span class="logo-sub">ADMIN PANEL</span>
+        </div>
+      </a>
+      <div class="admin-nav">
+        <div class="admin-user">
+          <i class="bi bi-person-circle"></i>
+          <span id="admin-username">Admin</span>
+        </div>
+        <button onclick="handleLogout()" style="background:rgba(255,255,255,0.1);border:none;color:#fff;padding:6px 14px;border-radius:8px;font-family:var(--font);font-size:13px;cursor:pointer;margin-left:8px;">
+          <i class="bi bi-box-arrow-right"></i> Logout
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="admin-layout">
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar">
+      <nav class="admin-side-nav">
+        <a href="#" class="side-nav-item active" data-page="dashboard"><i class="bi bi-speedometer2"></i> Dashboard</a>
+        <a href="#" class="side-nav-item" data-page="orders"><i class="bi bi-bag-fill"></i> Orders</a>
+        <a href="#" class="side-nav-item" data-page="menu-items"><i class="bi bi-list-ul"></i> Menu Items</a>
+        <a href="#" class="side-nav-item" data-page="customers"><i class="bi bi-people-fill"></i> Customers</a>
+      </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="admin-main">
+
+      <!-- DASHBOARD PAGE -->
+      <div id="page-dashboard" class="admin-page">
+        <div class="admin-page-title">
+          <h2>Dashboard</h2>
+          <span class="admin-date" id="admin-date"></span>
+        </div>
+        <div class="admin-stat-cards">
+          <div class="admin-stat-card">
+            <div class="stat-card-icon orange"><i class="bi bi-bag-fill"></i></div>
+            <div class="stat-card-info">
+              <span class="stat-card-num" id="stat-orders">—</span>
+              <span class="stat-card-label">Orders Today</span>
+            </div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="stat-card-icon green"><i class="bi bi-currency-exchange"></i></div>
+            <div class="stat-card-info">
+              <span class="stat-card-num" id="stat-revenue">—</span>
+              <span class="stat-card-label">Revenue Today</span>
+            </div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="stat-card-icon red"><i class="bi bi-clock-history"></i></div>
+            <div class="stat-card-info">
+              <span class="stat-card-num" id="stat-pending">—</span>
+              <span class="stat-card-label">Pending Orders</span>
+            </div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="stat-card-icon blue"><i class="bi bi-bag-check-fill"></i></div>
+            <div class="stat-card-info">
+              <span class="stat-card-num" id="stat-total">—</span>
+              <span class="stat-card-label">Total Orders</span>
+            </div>
+          </div>
+        </div>
+        <div class="admin-section-title">Live Order Status</div>
+        <div class="order-status-cards">
+          <div class="order-status-card status-new">
+            <div class="status-header"><span class="status-label">🆕 New</span><span class="status-count" id="count-new">0</span></div>
+            <div class="order-item-list" id="orders-new"></div>
+          </div>
+          <div class="order-status-card status-prep">
+            <div class="status-header"><span class="status-label">🍜 Preparing</span><span class="status-count" id="count-prep">0</span></div>
+            <div class="order-item-list" id="orders-prep"></div>
+          </div>
+          <div class="order-status-card status-deliver">
+            <div class="status-header"><span class="status-label">🛵 Delivering</span><span class="status-count" id="count-deliver">0</span></div>
+            <div class="order-item-list" id="orders-deliver"></div>
+          </div>
+          <div class="order-status-card status-done">
+            <div class="status-header"><span class="status-label">✅ Delivered</span><span class="status-count" id="count-done">0</span></div>
+            <div class="order-item-list" id="orders-done"></div>
+          </div>
+        </div>
+        <div class="admin-section-title">Recent Orders</div>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead><tr><th>Order ID</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th><th>Time</th><th>Action</th></tr></thead>
+            <tbody id="orders-table-body">
+              <tr><td colspan="7" style="text-align:center;padding:32px;color:rgba(56,0,0,0.4);">Loading orders…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ORDERS PAGE -->
+      <div id="page-orders" class="admin-page" style="display:none;">
+        <div class="admin-page-title"><h2>All Orders</h2></div>
+        <div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;">
+          <button class="filter-btn active" onclick="filterOrders('all', this)">All</button>
+          <button class="filter-btn" onclick="filterOrders('new', this)">New</button>
+          <button class="filter-btn" onclick="filterOrders('preparing', this)">Preparing</button>
+          <button class="filter-btn" onclick="filterOrders('delivering', this)">Delivering</button>
+          <button class="filter-btn" onclick="filterOrders('done', this)">Done</button>
+          <button class="filter-btn" onclick="filterOrders('cancelled', this)">Cancelled</button>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead><tr><th>Order ID</th><th>Customer</th><th>Phone</th><th>Address</th><th>Items</th><th>Total</th><th>Status</th><th>Time</th><th>Action</th></tr></thead>
+            <tbody id="all-orders-table-body">
+              <tr><td colspan="9" style="text-align:center;padding:32px;color:rgba(56,0,0,0.4);">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- MENU ITEMS PAGE -->
+      <div id="page-menu-items" class="admin-page" style="display:none;">
+        <div class="admin-page-title">
+          <h2>Menu Items</h2>
+          <button onclick="openMenuItemModal()" class="btn-primary-custom" style="font-size:13px;padding:9px 18px;">
+            <i class="bi bi-plus-lg"></i> Add Item
+          </button>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead><tr><th>Emoji</th><th>Name</th><th>Category</th><th>Price</th><th>Available</th><th>Action</th></tr></thead>
+            <tbody id="menu-items-table-body">
+              <tr><td colspan="6" style="text-align:center;padding:32px;color:rgba(56,0,0,0.4);">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- CUSTOMERS PAGE -->
+      <div id="page-customers" class="admin-page" style="display:none;">
+        <div class="admin-page-title"><h2>Customers</h2></div>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Joined</th></tr></thead>
+            <tbody id="customers-table-body">
+              <tr><td colspan="4" style="text-align:center;padding:32px;color:rgba(56,0,0,0.4);">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- MENU ITEM MODAL -->
+  <div id="menu-item-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);backdrop-filter:blur(4px);z-index:9000;align-items:center;justify-content:center;padding:20px;">
+    <div style="background:var(--bg);border-radius:24px;padding:36px 40px;width:100%;max-width:480px;position:relative;box-shadow:0 24px 80px rgba(56,0,0,0.25);display:flex;flex-direction:column;gap:16px;">
+      <button onclick="closeMenuItemModal()" style="position:absolute;top:16px;right:16px;width:32px;height:32px;background:rgba(56,0,0,0.06);border:none;border-radius:8px;cursor:pointer;font-size:16px;">✕</button>
+      <h3 id="menu-modal-title" style="font-size:18px;font-weight:800;color:var(--black);margin:0;">Add Menu Item</h3>
+      <input type="hidden" id="mi-id"/>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div style="display:flex;flex-direction:column;gap:5px;grid-column:1/-1;">
+          <label style="font-size:12px;font-weight:600;color:var(--brand);text-transform:uppercase;">Name</label>
+          <input id="mi-name" type="text" class="auth-input" placeholder="Spicy Ichiban"/>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:5px;">
+          <label style="font-size:12px;font-weight:600;color:var(--brand);text-transform:uppercase;">Emoji</label>
+          <input id="mi-emoji" type="text" class="auth-input" placeholder="🍜"/>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:5px;">
+          <label style="font-size:12px;font-weight:600;color:var(--brand);text-transform:uppercase;">Price (PHP)</label>
+          <input id="mi-price" type="number" class="auth-input" placeholder="99"/>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:5px;">
+          <label style="font-size:12px;font-weight:600;color:var(--brand);text-transform:uppercase;">Category</label>
+          <select id="mi-category" class="auth-input">
+            <option value="ramen">Ramen</option>
+            <option value="rice_bowls">Rice Bowls</option>
+            <option value="side_dish">Side Dish</option>
+            <option value="drinks">Drinks</option>
+          </select>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:5px;grid-column:1/-1;">
+          <label style="font-size:12px;font-weight:600;color:var(--brand);text-transform:uppercase;">Description</label>
+          <textarea id="mi-desc" class="auth-input" rows="3" placeholder="Describe the dish..."></textarea>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;grid-column:1/-1;">
+          <input id="mi-available" type="checkbox" checked style="width:16px;height:16px;"/>
+          <label style="font-size:13px;font-weight:600;color:var(--brand);">Available</label>
+        </div>
+      </div>
+      <div id="mi-error" style="display:none;font-size:12px;font-weight:600;color:var(--accent);background:rgba(171,0,0,0.07);border:1px solid rgba(171,0,0,0.15);border-radius:8px;padding:8px 12px;"></div>
+      <button id="mi-submit-btn" onclick="saveMenuItem()" class="btn-primary-custom" style="justify-content:center;">
+        <i class="bi bi-check-lg"></i> Save Item
+      </button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="cart.js"></script>
+  <script src="auth.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
