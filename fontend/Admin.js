@@ -10,7 +10,7 @@
  * All other logic (navigation, orders, customers, kanban) is unchanged.
  */
 
-const ADMIN_API = 'http://localhost:5000/api';
+const ADMIN_API = 'https://kyukyuramen99.online/api';
 
 requireAdmin();
 

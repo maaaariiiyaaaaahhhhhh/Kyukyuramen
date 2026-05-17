@@ -10,7 +10,7 @@
  *   + showToast() reusable toast helper used on order success
  */
 
-const MENU_API = 'http://localhost:5000/api';
+const MENU_API = 'https://kyukyuramen99.online/api';
 
 const STATIC_PRODUCTS = [
   { id: 'spicy-ichiban',   name: 'Spicy Ichiban',   emoji: '🌶️', price: 99, cat: 'ramen',      tags: [],               desc: 'Bold, fiery broth with thick-cut chashu, soft egg, and a house chili paste.' },

@@ -9,7 +9,7 @@
  *   + injectMyOrdersModal() — My Orders component with Cancel button (pending only)
  */
 
-const API_BASE = 'https://kyukyuramen.onrender.com/api';
+const API_BASE = 'https://kyukyuramen99.online/api';
 
 // ── Token helpers ─────────────────────────────────────────────
 function getToken()  { return localStorage.getItem('kyu_token'); }
