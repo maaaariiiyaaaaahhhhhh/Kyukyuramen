@@ -1,14 +1,4 @@
-/**
- * menu.js — UPDATED
- *
- * Changes:
- *   + Menu cards use <img> with emoji fallback
- *   + addToCart() passes category for packaging fee
- *   + Cart sidebar shows packaging fee line item
- *   + Checkout modal: email field + payment method dropdown
- *   + submitOrder() sends email + paymentMethod + packagingFee to API
- *   + showToast() reusable toast helper used on order success
- */
+
 
 const MENU_API = 'https://kyukyuramen99.online/api';
 

@@ -1,8 +1,4 @@
-// cart.js — UPDATED
-// Changes:
-//   + getPackagingFee(cartWithCategories) — calculates ₱20/ramen, ₱10/rice_bowls
-//   + cart items now optionally store `cat` field for fee calculation
-//   + addToCart() accepts category param
+
 
 function getCart() {
   try {
