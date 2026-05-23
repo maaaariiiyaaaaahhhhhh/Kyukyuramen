@@ -7,108 +7,154 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
-  <link rel="stylesheet" href="Styles.css"/>
+  <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
 
   <!-- HEADER -->
-  <header class="site-header" id="site-header">
-    <div class="noodle-bg"></div>
-    <div class="header-inner">
-      <a href="index.html" class="logo-wrap">
-        <div class="logo-mark">九九</div>
-        <div class="logo-text">
-          <span class="logo-main">KyuKyu</span>
-          <span class="logo-sub">RAMEN 99</span>
-        </div>
+ <header class="site-header" id="site-header">
+  <div class="nav-container">
+    <div class="nav-left">
+      <a href="index.html" class="nav-logo">
+        <img src="images/navLOGO.png" alt="Kyu Kyu Ramen 99 Logo">
       </a>
-      <nav class="main-nav">
-        <a href="index.html" class="nav-link active">Home</a>
-        <a href="menu.html"  class="nav-link">Menu</a>
-        <a href="about.html" class="nav-link">About</a>
-        <a href="contact.html" class="nav-link">Contact</a>
-      </nav>
-      <!-- Header action buttons -->
-      <div class="header-actions">
-        <button class="user-btn" id="user-auth-btn" title="Login / Sign Up">
-          <i class="bi bi-person"></i>
-        </button>
-        <button class="cart-btn" onclick="window.location.href='menu.html'">
-          <i class="bi bi-bag-fill"></i>
-          <span class="cart-badge" id="cart-count">0</span>
-        </button>
-      </div>
     </div>
-  </header>
+    <nav class="main-nav">
+      <a href="index.html"   class="nav-link" active>Home</a>
+      <a href="menu.html"    class="nav-link ">Menu</a>
+      <a href="about.html"   class="nav-link">About</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <button class="user-btn" id="user-auth-btn" data-tooltip="Account">
+        <i class="bi bi-person"></i>
+      </button>
+      <button class="cart-btn" id="header-cart-btn" data-tooltip="Cart">
+        <i class="bi bi-bag-fill"></i>
+        <span class="cart-badge" id="cart-count">0</span>
+      </button>
+    </div>
+  </div>
+</header>
 
  <!-- ======= HOME PAGE ======= -->
+<!-- RAMEN HERO: JS will move this inside #hero-compression-wrapper at runtime -->
+<section class="ramen-hero" id="ramen-hero">
+    <div class="hero-wave-bg" id="wave-bg"></div>
 
-<!-- BANNER 1 -->
-<section class="home-banner1">
-  <img src="images/2.png"  class="banner-img">
-  
-</section>
+    <img src="images/japanese-asset.png" class="japanese-background-asset asset-pos-1" alt="Japanese Ornament Deco">
+    <img src="images/japanese-asset.png" class="japanese-background-asset asset-pos-2" alt="Japanese Ornament Deco">
+    <img src="images/japanese-asset.png" class="japanese-background-asset asset-pos-3" alt="Japanese Ornament Deco">
+    <img src="images/japanese-asset.png" class="japanese-background-asset asset-pos-4" alt="Japanese Ornament Deco">
 
-<!-- CAROUSEL -->
-<section class="home-carousel-section">
-  <div class="home-carousel-wrap">
-    <button class="car-arrow" onclick="slideCarousel(-1)">&#8249;</button>
-    <div class="home-carousel" id="homeCarousel">
-
-      <div class="car-card">
-        <div class="car-img-wrap"><span>🍜</span></div>
-        <div class="car-body">
-          <h3>Spicy Ichiban</h3>
-          <p>Bold fiery broth with thin-cut chashu and soft egg.</p>
-          <div class="car-footer"><span class="car-price">₱99</span><a href="menu.html" class="car-order">Order +</a></div>
-        </div>
-      </div>
-
-      <div class="car-card car-featured">
-        <div class="car-img-wrap"><span>🏆</span></div>
-        <div class="car-body">
-          <h3>Ichiban</h3>
-          <p>Crowd-tested champion. Umami-forward broth with layered toppings.</p>
-          <div class="car-footer"><span class="car-price">₱99</span><a href="menu.html" class="car-order">Order +</a></div>
-        </div>
-      </div>
-
-      <div class="car-card">
-        <div class="car-img-wrap"><img src="" alt=""></div>
-        <div class="car-body">
-          <h3>Gyudon</h3>
-          <p>Seasoned beef and caramelized onions over fluffy rice.</p>
-          <div class="car-footer"><span class="car-price">₱99</span><a href="menu.html" class="car-order">Order +</a></div>
-        </div>
-      </div>
-
-      <div class="car-card">
-        <div class="car-img-wrap"><span>🍖</span></div>
-        <div class="car-body">
-          <h3>Kyu Kyu</h3>
-          <p>Signature pork-chicken blend, nori, bamboo, soft egg.</p>
-          <div class="car-footer"><span class="car-price">₱99</span><a href="menu.html" class="car-order">Order +</a></div>
-        </div>
-      </div>
-
-      <div class="car-card">
-        <div class="car-img-wrap"><span>🧀</span></div>
-        <div class="car-body">
-          <h3>Cheesy Tonkotsu</h3>
-          <p>Rich tonkotsu with a melted cheese crown.</p>
-          <div class="car-footer"><span class="car-price">₱99</span><a href="menu.html" class="car-order">Order +</a></div>
-        </div>
-      </div>
-
+    <div class="color-splash-container">
+        <div class="splash-ring-element" id="splash-ring"></div>
     </div>
-    <button class="car-arrow" onclick="slideCarousel(1)">&#8250;</button>
-  </div>
-  <div class="car-dots" id="carDots"></div>
+
+   
+
+    <div class="content-left">
+        <div class="hero-brand-logo-wrap">
+            <img src="images/text-logo.png" alt="Kyu Kyu Brand Text Logo Asset">
+        </div>
+        
+        <h1 class="item-title" id="item-title">CHEESY TONKATSU</h1>
+        <p class="item-desc" id="item-desc">
+            Experience our traditional, slow-simmered pork bone broth served with perfectly tender noodles, soft-boiled egg, and classic toppings. Rich, layered flavor profiles designed to hit perfectly every single order.
+        </p>
+
+        <div class="hero-meta-details">
+            <div class="meta-box">
+                <h4>Prep Time</h4>
+                <p>24 Hrs Broth</p>
+            </div>
+            <div class="meta-box">
+                <h4>Base Style</h4>
+                <p>Hakata Tonkatsu</p>
+            </div>
+            <div class="meta-box">
+                <h4>Price Value</h4>
+                <p>₱99.00 Only</p>
+            </div>
+        </div>
+
+        <div class="thumbnail-row">
+            <div class="item-thumb active" data-index="0"><img src="images/cheesy-tonkatsu.png" alt="Cheesy Tonkatsu"></div>
+            <div class="item-thumb" data-index="1"><img src="images/gyudonn.png" alt="Gyudon"></div>
+            <div class="item-thumb" data-index="2"><img src="images/ichibann.png" alt="Ichiban"></div>
+            <div class="item-thumb" data-index="3"><img src="images/spicy-ichiban.png" alt="Spicy Ichiban"></div>
+            <div class="thumb-active-line" id="active-line"></div>
+        </div>
+    </div>
+
+    <div class="content-right">
+        <div class="bowl-display-stage">
+            <img src="images/cheesy-tonkatsu.png" class="ramen-showcase-bowl active" data-index="0" alt="Cheesy Tonkatsu">
+            <img src="images/gyudonn.png" class="ramen-showcase-bowl next" data-index="1" alt="Gyudon">
+            <img src="images/ichibann.png" class="ramen-showcase-bowl next" data-index="2" alt="Ichiban">
+            <img src="images/spicy-ichiban.png" class="ramen-showcase-bowl next" data-index="3" alt="Spicy Ichiban">
+        </div>
+    </div>
 </section>
 
-<!-- BANNER 2 -->
-<section class="home-banner2">
-  <img src="images/1.png" class="banner-img">
+<!-- MOST FAVORITE SECTION -->
+<section class="mostfav-section">
+  <div class="mostfav-inner">
+
+    <!-- LEFT: Phone mockup -->
+    <div class="mostfav-phone-wrap">
+      <div class="mostfav-phone">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <video autoplay muted loop playsinline>
+            <source src="images/ramen-video.mp4" type="video/mp4"/>
+          </video>
+          <img src="images/kyu kyu.png" alt="Most Ordered" class="phone-placeholder-img"/>
+        </div>
+        <div class="phone-home-bar"></div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Content -->
+<div class="mostfav-content">
+  <div class="mostfav-eyebrow">⭐ Most Favorite</div>
+  <h2 class="mostfav-title">What Everyone's<br><span>Ordering</span></h2>
+  <p class="mostfav-sub">Our top picks, loved by thousands of ramen fans across Metro Manila.</p>
+
+  <!-- 3 Cards -->
+  <div class="mf-cards-row">
+
+    <div class="mf-card-item side" onclick="mfGoTo(0)" id="mf-card-0">
+      <img src="images/kyu kyu.png" alt="Kyu Kyu"/>
+      <div class="mf-card-label">
+        <span class="mf-card-rank">#1</span>
+        <span class="mf-card-name">Kyu Kyu</span>
+        <span class="mf-card-price">₱99</span>
+      </div>
+    </div>
+
+    <div class="mf-card-item center" onclick="mfGoTo(1)" id="mf-card-1">
+      <img src="images/ichiban.png" alt="Ichiban"/>
+      <div class="mf-card-label">
+        <span class="mf-card-rank">#2</span>
+        <span class="mf-card-name">Ichiban</span>
+        <span class="mf-card-price">₱99</span>
+      </div>
+    </div>
+
+    <div class="mf-card-item side" onclick="mfGoTo(2)" id="mf-card-2">
+      <img src="images/cheesy-tonkatsu.png" alt="Cheesy Tonkotsu"/>
+      <div class="mf-card-label">
+        <span class="mf-card-rank">#3</span>
+        <span class="mf-card-name">Cheesy Tonkotsu</span>
+        <span class="mf-card-price">₱99</span>
+      </div>
+    </div>
+
+  </div>
+
+  <a href="menu.html" class="mf-view-btn">View Full Menu →</a>
+</div>
 </section>
 
 
@@ -139,13 +185,116 @@
   </div>
 </section>
 
+
+<section class="promo-banner">
+
+  <div class="promo-inner">
+
+    <!-- LEFT -->
+    <div class="promo-left">
+
+      <div class="promo-logo">
+        YOUR LOGO HERE
+      </div>
+
+      <h1 class="promo-headline">
+        <span class="promo-small">the best</span>
+        <span class="promo-yellow">ramen of the day</span>
+        <span class="promo-big">in your town</span>
+      </h1>
+
+      <div class="promo-contact">
+
+        <div>
+          <div class="promo-number">0912-345-6789</div>
+          <div class="promo-site">www.yourwebsite.com</div>
+        </div>
+
+        <a href="menu.html" class="promo-btn">
+          🍜 ORDER NOW
+        </a>
+
+      </div>
+
+    </div>
+
+    <!-- RIGHT -->
+    <div class="promo-right">
+
+      <div class="promo-delivery">
+        Fast Delivery
+      </div>
+
+      <div class="promo-badge">
+        <span>50%</span>
+        <small>OFF</small>
+      </div>
+
+            <!-- PUT THIS INSIDE .promo-right ABOVE THE MAIN RAMEN IMAGE -->
+
+      <div class="steam">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <!-- small foods -->
+      <img src="images/gyoza.png" class="promo-food food1">
+      <img src="images/kyu kyu.png" class="promo-food food2">
+      <img src="images/ichiban.png" class="promo-food food3">
+
+      <!-- main ramen -->
+      <img src="images/ichiban.png" class="promo-main">
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- CART SIDEBAR -->
+<div style="position:fixed;inset:0;z-index:1200;pointer-events:none;" id="cart-overlay-wrap">
+  <aside class="cart-sidebar" id="cart-sidebar" style="pointer-events:all;">
+    <div class="sidebar-header">
+      <h3><i class="bi bi-bag-fill"></i> Your Cart</h3>
+      <button class="close-sidebar-btn" id="close-sidebar"><i class="bi bi-x-lg"></i></button>
+    </div>
+    <div class="sidebar-items" id="sidebar-items">
+      <div class="empty-cart-msg" id="empty-cart-msg">
+        <div class="empty-icon">🍜</div>
+        <p>Your cart is empty.<br/>Add some ramen!</p>
+      </div>
+    </div>
+    <div class="sidebar-footer" id="sidebar-footer">
+      <div class="subtotal-row">
+        <span>Subtotal</span>
+        <span id="subtotal-val">₱0</span>
+      </div>
+      <div class="subtotal-row del-row">
+        <span>Delivery Fee</span>
+        <span>₱49</span>
+      </div>
+      <div class="subtotal-row total-row">
+        <span>Total</span>
+        <span id="total-val">₱0</span>
+      </div>
+      <a href="menu.html" class="checkout-btn" style="text-align:center;">
+        <i class="bi bi-arrow-right"></i> Go to Menu to Checkout
+      </a>
+    </div>
+  </aside>
+</div>
+
+
  <!-- FOOTER -->
 <footer class="site-footer">
   <div class="footer-noodle-bg"></div>
   <div class="footer-inner">
     <div class="footer-brand">
       <div class="footer-logo">
-        <img src="assets/img/logo.png" alt="KyuKyu Ramen 99 Logo" class="footer-logo-img" onerror="this.style.display='none'">
+        <img src="images/logo.png" alt="placeholder" class="footer-logo-img" onerror="this.style.display='none'">
       </div>
       <p class="footer-tagline">Bold Broth. Real Ramen. Always ₱99.<br>Filipino ramen for every Filipino.</p>
       <div class="footer-social">

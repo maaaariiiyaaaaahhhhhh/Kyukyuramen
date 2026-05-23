@@ -38,8 +38,15 @@ router.post('/', async (req, res) => {
     if (!items?.length) return res.status(400).json({ message: 'Order must have items' });
 
     const enriched = [];
-    for (const line of items) {
-      const menuItem = await MenuItem.findById(line.menuItemId);
+  for (const line of items) {
+      let menuItem = null;
+      const isValidId = line.menuItemId?.match(/^[a-f\d]{24}$/i);
+      if (isValidId) {
+        menuItem = await MenuItem.findById(line.menuItemId);
+      }
+      if (!menuItem) {
+        menuItem = await MenuItem.findOne({ name: line.name });
+      }
       if (!menuItem || !menuItem.isAvailable) {
         return res.status(400).json({ message: `Item "${line.name}" is unavailable` });
       }

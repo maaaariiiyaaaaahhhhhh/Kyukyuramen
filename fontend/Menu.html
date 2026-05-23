@@ -12,33 +12,30 @@
 <body>
 
   <!-- HEADER -->
-  <header class="site-header" id="site-header">
-    <div class="noodle-bg"></div>
-    <div class="header-inner">
-      <a href="index.html" class="logo-wrap">
-        <div class="logo-mark">九九</div>
-        <div class="logo-text">
-          <span class="logo-main">KyuKyu</span>
-          <span class="logo-sub">RAMEN 99</span>
-        </div>
+ <header class="site-header" id="site-header">
+  <div class="nav-container">
+    <div class="nav-left">
+      <a href="index.html" class="nav-logo">
+        <img src="images/navLOGO.png" alt="Kyu Kyu Ramen 99 Logo">
       </a>
-      <nav class="main-nav">
-        <a href="index.html"   class="nav-link">Home</a>
-        <a href="menu.html"    class="nav-link active">Menu</a>
-        <a href="about.html"   class="nav-link">About</a>
-        <a href="contact.html" class="nav-link">Contact</a>
-      </nav>
-      <div class="header-actions">
-        <button class="user-btn" id="user-auth-btn" title="Login / Sign Up">
-          <i class="bi bi-person"></i>
-        </button>
-        <button class="cart-btn" id="cart-toggle-btn">
-          <i class="bi bi-bag-fill"></i>
-          <span class="cart-badge" id="cart-count">0</span>
-        </button>
-      </div>
     </div>
-  </header>
+    <nav class="main-nav">
+      <a href="index.html"   class="nav-link">Home</a>
+      <a href="menu.html"    class="nav-link active">Menu</a>
+      <a href="about.html"   class="nav-link">About</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <button class="user-btn" id="user-auth-btn" data-tooltip="Account">
+        <i class="bi bi-person"></i>
+      </button>
+      <button class="cart-btn" id="header-cart-btn" data-tooltip="Cart">
+        <i class="bi bi-bag-fill"></i>
+        <span class="cart-badge" id="cart-count">0</span>
+      </button>
+    </div>
+  </div>
+</header>
 
   <!-- PAGE BANNER -->
   <div class="page-banner">
@@ -46,14 +43,13 @@
     <p>Every bowl. Every time. ₱99.</p>
   </div>
 
-  <!-- CATEGORY FILTER (populated by menu.js) -->
+  <!-- CATEGORY FILTER -->
   <div class="filter-bar" id="filter-bar"></div>
 
   <!-- MENU + SIDEBAR LAYOUT -->
   <div class="menu-layout" id="menu-layout">
     <div class="catalogue-area" id="catalogue-area">
       <div class="menu-grid" id="menu-grid">
-        <!-- Loading skeleton -->
         <div class="menu-loading">Loading menu…</div>
       </div>
     </div>
@@ -90,49 +86,83 @@
     </aside>
   </div>
 
-<!-- FOOTER -->
-<footer class="site-footer">
-  <div class="footer-noodle-bg"></div>
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <div class="footer-logo">
-        <img src="assets/img/logo.png" alt="KyuKyu Ramen 99 Logo" class="footer-logo-img" onerror="this.style.display='none'">
-      </div>
-      <p class="footer-tagline">Bold Broth. Real Ramen. Always ₱99.<br>Filipino ramen for every Filipino.</p>
-      <div class="footer-social">
-        <a href="#"><i class="bi bi-facebook"></i></a>
-        <a href="#"><i class="bi bi-instagram"></i></a>
-        <a href="#"><i class="bi bi-tiktok"></i></a>
-        <a href="#"><i class="bi bi-twitter-x"></i></a>
+
+  <!-- CART SIDEBAR -->
+<div style="position:fixed;inset:0;z-index:1200;pointer-events:none;" id="cart-overlay-wrap">
+  <aside class="cart-sidebar" id="cart-sidebar" style="pointer-events:all;">
+    <div class="sidebar-header">
+      <h3><i class="bi bi-bag-fill"></i> Your Cart</h3>
+      <button class="close-sidebar-btn" id="close-sidebar"><i class="bi bi-x-lg"></i></button>
+    </div>
+    <div class="sidebar-items" id="sidebar-items">
+      <div class="empty-cart-msg" id="empty-cart-msg">
+        <div class="empty-icon">🍜</div>
+        <p>Your cart is empty.<br/>Add some ramen!</p>
       </div>
     </div>
-    <div class="footer-links">
-      <h5>Navigate</h5>
-      <a href="index.html">Home</a>
-      <a href="menu.html">Menu</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
+    <div class="sidebar-footer" id="sidebar-footer">
+      <div class="subtotal-row">
+        <span>Subtotal</span>
+        <span id="subtotal-val">₱0</span>
+      </div>
+      <div class="subtotal-row del-row">
+        <span>Delivery Fee</span>
+        <span>₱49</span>
+      </div>
+      <div class="subtotal-row total-row">
+        <span>Total</span>
+        <span id="total-val">₱0</span>
+      </div>
+      <a href="menu.html" class="checkout-btn" style="text-align:center;">
+        <i class="bi bi-arrow-right"></i> Go to Menu to Checkout
+      </a>
     </div>
-    <div class="footer-links">
-      <h5>Hours</h5>
-      <span>Mon–Fri: 11AM – 10PM</span>
-      <span>Sat–Sun: 10AM – 11PM</span>
-      <span>Holidays: 12PM – 9PM</span>
+  </aside>
+</div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-noodle-bg"></div>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img src="assets/img/logo.png" alt="KyuKyu Ramen 99 Logo" class="footer-logo-img" onerror="this.style.display='none'">
+        </div>
+        <p class="footer-tagline">Bold Broth. Real Ramen. Always ₱99.<br>Filipino ramen for every Filipino.</p>
+        <div class="footer-social">
+          <a href="#"><i class="bi bi-facebook"></i></a>
+          <a href="#"><i class="bi bi-instagram"></i></a>
+          <a href="#"><i class="bi bi-tiktok"></i></a>
+          <a href="#"><i class="bi bi-twitter-x"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h5>Navigate</h5>
+        <a href="index.html">Home</a>
+        <a href="menu.html">Menu</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-links">
+        <h5>Hours</h5>
+        <span>Mon–Fri: 11AM – 10PM</span>
+        <span>Sat–Sun: 10AM – 11PM</span>
+        <span>Holidays: 12PM – 9PM</span>
+      </div>
+      <div class="footer-links">
+        <h5>Contacts</h5>
+        <span><i class="bi bi-telephone-fill"></i> 0917-999-9999</span>
+        <span><i class="bi bi-envelope-fill"></i> hello@kyukyuramen.ph</span>
+        <span><i class="bi bi-geo-alt-fill"></i> Metro Manila</span>
+      </div>
     </div>
-    <div class="footer-links">
-      <h5>Contacts</h5>
-      <span><i class="bi bi-telephone-fill"></i> 0917-999-9999</span>
-      <span><i class="bi bi-envelope-fill"></i> hello@kyukyuramen.ph</span>
-      <span><i class="bi bi-geo-alt-fill"></i> Metro Manila</span>
+    <div class="footer-bottom">
+      <span>© 2025 KyuKyu Ramen 99. All rights reserved.<br>
+        <small>Web Design &amp; Developed by <em>Elaiza Mariel Tagle</em> and <em>Maria Isabel Canaria</em></small>
+      </span>
+      <span>Made with 🍜 in the Philippines</span>
     </div>
-  </div>
-  <div class="footer-bottom">
-    <span>© 2025 KyuKyu Ramen 99. All rights reserved.<br>
-      <small>Web Design &amp; Developed by <em>Elaiza Mariel Tagle</em> and <em>Maria Isabel Canaria</em></small>
-    </span>
-    <span>Made with 🍜 in the Philippines</span>
-  </div>
-</footer>
+  </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="cart.js"></script>

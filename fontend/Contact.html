@@ -11,34 +11,30 @@
 </head>
 <body>
   <!-- HEADER -->
-  <header class="site-header" id="site-header">
-    <div class="noodle-bg"></div>
-    <div class="header-inner">
-      <a href="index.html" class="logo-wrap">
-        <div class="logo-mark">九九</div>
-        <div class="logo-text">
-          <span class="logo-main">KyuKyu</span>
-          <span class="logo-sub">RAMEN 99</span>
-        </div>
+<header class="site-header" id="site-header">
+  <div class="nav-container">
+    <div class="nav-left">
+      <a href="index.html" class="nav-logo">
+        <img src="images/navLOGO.png" alt="Kyu Kyu Ramen 99 Logo">
       </a>
-      <nav class="main-nav">
-        <a href="index.html" class="nav-link active">Home</a>
-        <a href="menu.html"  class="nav-link">Menu</a>
-        <a href="about.html" class="nav-link">About</a>
-        <a href="contact.html" class="nav-link">Contact</a>
-      </nav>
-      <!-- Header action buttons -->
-      <div class="header-actions">
-        <button class="user-btn" id="user-auth-btn" title="Login / Sign Up">
-          <i class="bi bi-person"></i>
-        </button>
-        <button class="cart-btn" onclick="window.location.href='menu.html'">
-          <i class="bi bi-bag-fill"></i>
-          <span class="cart-badge" id="cart-count">0</span>
-        </button>
-      </div>
     </div>
-  </header>
+    <nav class="main-nav">
+      <a href="index.html"   class="nav-link">Home</a>
+      <a href="menu.html"    class="nav-link ">Menu</a>
+      <a href="about.html"   class="nav-link">About</a>
+      <a href="contact.html" class="nav-link" active>Contact</a>
+    </nav>
+    <div class="header-actions">
+      <button class="user-btn" id="user-auth-btn" data-tooltip="Account">
+        <i class="bi bi-person"></i>
+      </button>
+      <button class="cart-btn" id="header-cart-btn" data-tooltip="Cart">
+        <i class="bi bi-bag-fill"></i>
+        <span class="cart-badge" id="cart-count">0</span>
+      </button>
+    </div>
+  </div>
+</header>
 
   <!-- PAGE BANNER -->
   <div class="page-banner">
@@ -47,51 +43,223 @@
   </div>
 
   <!-- CONTACT SECTION -->
-  <section class="contact-section">
-    <div class="contact-flex">
-      <!-- INFO -->
-      <div class="contact-info">
-        <h3>Reach Us</h3>
-        <div class="contact-item">
+<section class="contact-section">
+
+ <div class="contact-body">
+
+    <!-- ROW 1: MAIN MAP + INFO -->
+    <div class="contact-top-row">
+      <div class="contact-map-main">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!3m2!1sen!2sph!4v1779559806700!5m2!1sen!2sph!6m8!1m7!1spnY2SQ58y3gb05pyxK3Q9g!2m2!1d14.6852418899774!2d120.9765701258474!3f57.13722703690187!4f-0.221508683692079!5f0.9407297742110554"
+          allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+
+      <div class="contact-info-col">
+
+        <div class="contact-info-card">
           <div class="contact-icon"><i class="bi bi-telephone-fill"></i></div>
-          <div>
+          <div class="ci-text">
             <strong>Phone</strong>
             <span>0917-999-9999</span>
           </div>
         </div>
-        <div class="contact-item">
+
+        <div class="contact-info-card">
           <div class="contact-icon"><i class="bi bi-envelope-fill"></i></div>
-          <div>
+          <div class="ci-text">
             <strong>Email</strong>
             <span>hello@kyukyuramen.ph</span>
           </div>
         </div>
-        <div class="contact-item">
+
+        <div class="contact-info-card">
           <div class="contact-icon"><i class="bi bi-geo-alt-fill"></i></div>
-          <div>
+          <div class="ci-text">
             <strong>Headquarters</strong>
-            <span>Quezon City, Metro Manila, Philippines</span>
+            <span>Timog Ave., Quezon City, Metro Manila</span>
           </div>
         </div>
-        <div class="contact-item">
+
+        <div class="contact-info-card">
           <div class="contact-icon"><i class="bi bi-clock-fill"></i></div>
-          <div>
+          <div class="ci-text">
             <strong>Operating Hours</strong>
-            <span>Mon–Sun: 10AM – 10PM</span>
+            <span>Mon – Sun &nbsp;|&nbsp; 10:00 AM – 10:00 PM</span>
           </div>
         </div>
-        <div class="contact-social-title">Follow us:</div>
-        <div class="footer-social" style="margin-top: 10px;">
-          <a href="#"><i class="bi bi-facebook"></i></a>
-          <a href="#"><i class="bi bi-instagram"></i></a>
-          <a href="#"><i class="bi bi-tiktok"></i></a>
-          <a href="#"><i class="bi bi-twitter-x"></i></a>
+
+        <div class="contact-social-card">
+          <p>Follow Us</p>
+          <div class="footer-social">
+            <a href="#"><i class="bi bi-facebook"></i></a>
+            <a href="#"><i class="bi bi-instagram"></i></a>
+            <a href="#"><i class="bi bi-tiktok"></i></a>
+            <a href="#"><i class="bi bi-twitter-x"></i></a>
+          </div>
         </div>
+
+      </div>
+    </div>
+
+    <!-- ROW 2: BRANCHES WITH INDIVIDUAL MAPS -->
+    <div class="contact-branches">
+      <div class="contact-branches-header">
+        <div class="hero-eyebrow"><i class="bi bi-shop"></i> Our Branches</div>
+        <h3>Find a Kyu Kyu Near You</h3>
       </div>
 
-      <!-- FORM -->
-      <div class="contact-form-wrap">
-        <h3>Send a Message</h3>
+      <div class="branches-grid">
+
+        <!-- HQ -->
+        <div class="branch-card branch-hq">
+          <div class="branch-map-thumb">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3860.5!2d120.9765!3d14.6852!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTTCsDQxJzA3LjAiTiAxMjDCsDU4JzM1LjciRQ!5e0!3m2!1sen!2sph!4v1700000001"
+              loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+            <div class="branch-map-overlay"></div>
+          </div>
+          <div class="branch-card-body">
+            <div class="branch-card-top">
+              <h4 class="branch-name">Kyu Kyu Quezon City</h4>
+              <span class="branch-hq-badge"><i class="bi bi-star-fill"></i> HQ</span>
+            </div>
+            <p class="branch-addr">Timog Ave., South Triangle, Quezon City, Metro Manila</p>
+            <div class="branch-footer">
+              <p class="branch-hours"><i class="bi bi-clock"></i> 10AM – 10PM daily</p>
+              <a class="branch-dir-btn" href="https://maps.google.com/?q=Timog+Ave+Quezon+City" target="_blank">
+                <i class="bi bi-map"></i> Directions
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- BGC -->
+        <div class="branch-card">
+          <div class="branch-map-thumb">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3861.5!2d121.0437!3d14.5490!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397c90264daaaab%3A0x69f9f3ea6d57a7d0!2sBGC%2C%20Taguig!5e0!3m2!1sen!2sph!4v1700000002"
+              loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+            <div class="branch-map-overlay"></div>
+          </div>
+          <div class="branch-card-body">
+            <div class="branch-card-top">
+              <h4 class="branch-name">Kyu Kyu BGC</h4>
+            </div>
+            <p class="branch-addr">5th Ave. cor. 26th St., Bonifacio Global City, Taguig</p>
+            <div class="branch-footer">
+              <p class="branch-hours"><i class="bi bi-clock"></i> 11AM – 11PM daily</p>
+              <a class="branch-dir-btn" href="https://maps.google.com/?q=BGC+Taguig" target="_blank">
+                <i class="bi bi-map"></i> Directions
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- MAKATI -->
+        <div class="branch-card">
+          <div class="branch-map-thumb">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3861.0!2d121.0244!3d14.5547!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397c91a24b7e5b7%3A0xd7e46a9f24e3bb54!2sGlorietta%2C%20Makati!5e0!3m2!1sen!2sph!4v1700000003"
+              loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+            <div class="branch-map-overlay"></div>
+          </div>
+          <div class="branch-card-body">
+            <div class="branch-card-top">
+              <h4 class="branch-name">Kyu Kyu Makati</h4>
+            </div>
+            <p class="branch-addr">Glorietta 4, Ayala Center, Makati City</p>
+            <div class="branch-footer">
+              <p class="branch-hours"><i class="bi bi-clock"></i> 10AM – 10PM daily</p>
+              <a class="branch-dir-btn" href="https://maps.google.com/?q=Glorietta+4+Makati" target="_blank">
+                <i class="bi bi-map"></i> Directions
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ORTIGAS -->
+        <div class="branch-card">
+          <div class="branch-map-thumb">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3860.8!2d121.0565!3d14.5832!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397c78e0000000d%3A0x29f40cd67ea8efae!2sSM%20Megamall%2C%20Mandaluyong!5e0!3m2!1sen!2sph!4v1700000004"
+              loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+            <div class="branch-map-overlay"></div>
+          </div>
+          <div class="branch-card-body">
+            <div class="branch-card-top">
+              <h4 class="branch-name">Kyu Kyu Ortigas</h4>
+            </div>
+            <p class="branch-addr">SM Megamall, EDSA cor. Julia Vargas, Mandaluyong</p>
+            <div class="branch-footer">
+              <p class="branch-hours"><i class="bi bi-clock"></i> 10AM – 10PM daily</p>
+              <a class="branch-dir-btn" href="https://maps.google.com/?q=SM+Megamall+Mandaluyong" target="_blank">
+                <i class="bi bi-map"></i> Directions
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- EASTWOOD -->
+        <div class="branch-card">
+          <div class="branch-map-thumb">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3860.2!2d121.0805!3d14.6099!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397b93e0000000b%3A0x1f6c0c7b7a0b0b0b!2sEastwood+City+Walk%2C+Quezon+City!5e0!3m2!1sen!2sph!4v1700000005"
+              loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+            <div class="branch-map-overlay"></div>
+          </div>
+          <div class="branch-card-body">
+            <div class="branch-card-top">
+              <h4 class="branch-name">Kyu Kyu Eastwood</h4>
+            </div>
+            <p class="branch-addr">Eastwood City Walk, Libis, Quezon City</p>
+            <div class="branch-footer">
+              <p class="branch-hours"><i class="bi bi-clock"></i> 11AM – 11PM daily</p>
+              <a class="branch-dir-btn" href="https://maps.google.com/?q=Eastwood+City+Walk+Quezon+City" target="_blank">
+                <i class="bi bi-map"></i> Directions
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- MOA -->
+        <div class="branch-card">
+          <div class="branch-map-thumb">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3862.2!2d120.9822!3d14.5352!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397cf4de861d30b%3A0x80571e3c13ac0917!2sMall+of+Asia%2C+Pasay!5e0!3m2!1sen!2sph!4v1700000006"
+              loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+            <div class="branch-map-overlay"></div>
+          </div>
+          <div class="branch-card-body">
+            <div class="branch-card-top">
+              <h4 class="branch-name">Kyu Kyu MOA</h4>
+            </div>
+            <p class="branch-addr">Mall of Asia Complex, Pasay City</p>
+            <div class="branch-footer">
+              <p class="branch-hours"><i class="bi bi-clock"></i> 10AM – 11PM daily</p>
+              <a class="branch-dir-btn" href="https://maps.google.com/?q=Mall+of+Asia+Pasay" target="_blank">
+                <i class="bi bi-map"></i> Directions
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ROW 3: FORM + QUICK ACTIONS -->
+    <div class="contact-bottom-row">
+
+      <div class="contact-form-panel">
+        <div class="hero-eyebrow form-eyebrow"><i class="bi bi-chat-dots-fill"></i> Send a Message</div>
+        <h3>We'd love to hear from you</h3>
         <div class="contact-form" id="contactForm">
           <div class="form-row">
             <div class="form-group-custom">
@@ -112,7 +280,7 @@
             <textarea class="form-input-custom form-textarea" rows="5" placeholder="Tell us more..." id="fmessage"></textarea>
           </div>
           <button class="btn-primary-custom" type="button" onclick="handleContactSubmit()">
-            Send Message <i class="bi bi-send-fill"></i>
+            Send Message &nbsp;<i class="bi bi-send-fill"></i>
           </button>
           <div id="form-success" class="form-success-msg" style="display:none;">
             <i class="bi bi-check-circle-fill"></i> Message sent! We'll reply within 24 hours.
@@ -120,7 +288,8 @@
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
   <!-- FOOTER -->
 <footer class="site-footer">

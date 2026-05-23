@@ -33,9 +33,8 @@ const SEED_ITEMS = [
 // ── GET /api/menu (public) ───────────────────────────────────
 router.get('/', async (req, res) => {
   try {
-    const filter = { isAvailable: true };
+    const filter = {};
     if (req.query.category) filter.category = req.query.category;
-    if (req.query.all === 'true') delete filter.isAvailable; // admin can see all
     const items = await MenuItem.find(filter).sort({ sortOrder: 1 });
     res.json({ count: items.length, items });
   } catch (err) {

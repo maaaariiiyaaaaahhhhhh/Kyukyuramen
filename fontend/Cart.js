@@ -70,3 +70,84 @@ function getPackagingFee() {
 function getGrandTotal(deliveryFee = 49) {
   return getSubtotal() + deliveryFee + getPackagingFee();
 }
+
+// ── Universal cart sidebar (works on all pages) ───────────────
+function renderSidebarUniversal() {
+  const cart     = getCart();
+  const itemsEl  = document.getElementById('sidebar-items');
+  const emptyMsg = document.getElementById('empty-cart-msg');
+  const footerEl = document.getElementById('sidebar-footer');
+  if (!itemsEl) return;
+
+  if (!cart.length) {
+    emptyMsg.style.display = 'flex';
+    footerEl.style.display = 'none';
+    itemsEl.querySelectorAll('.sidebar-item').forEach(el => el.remove());
+    return;
+  }
+
+  emptyMsg.style.display = 'none';
+  footerEl.style.display = 'flex';
+  itemsEl.querySelectorAll('.sidebar-item').forEach(el => el.remove());
+
+  cart.forEach(item => {
+    const div = document.createElement('div');
+    div.className = 'sidebar-item';
+    div.innerHTML = `
+      <div class="si-img-wrap">
+        <img src="${item.emoji || ''}" alt="${item.name}" class="si-img"
+          onerror="this.style.display='none';this.parentElement.classList.add('si-img-missing')"/>
+      </div>
+      <div class="si-info">
+        <div class="si-name">${item.name}</div>
+        <div class="si-price">₱${item.price}</div>
+      </div>
+      <div class="si-qty-ctrl">
+        <button class="qty-btn" onclick="universalChangeQty('${item.id}', -1)">−</button>
+        <span>${item.qty}</span>
+        <button class="qty-btn" onclick="universalChangeQty('${item.id}', 1)">+</button>
+      </div>
+      <button class="si-remove" onclick="universalRemove('${item.id}')"><i class="bi bi-x"></i></button>`;
+    itemsEl.appendChild(div);
+  });
+
+  const subtotal     = getSubtotal();
+  const packagingFee = getPackagingFee();
+  const grandTotal   = subtotal + 49 + packagingFee;
+
+  document.getElementById('subtotal-val').textContent = `₱${subtotal}`;
+  document.getElementById('total-val').textContent    = `₱${grandTotal}`;
+}
+
+function universalChangeQty(id, delta) { changeQty(id, delta); renderSidebarUniversal(); }
+function universalRemove(id)           { removeFromCart(id);   renderSidebarUniversal(); }
+
+function openCartSidebar() {
+  const sidebar = document.getElementById('cart-sidebar');
+  if (sidebar) sidebar.classList.add('sidebar-open');
+}
+
+function closeCartSidebar() {
+  const sidebar = document.getElementById('cart-sidebar');
+  if (sidebar) sidebar.classList.remove('sidebar-open');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  updateCartBadge();
+  renderSidebarUniversal();
+
+  const cartBtn  = document.getElementById('header-cart-btn');
+  const closeBtn = document.getElementById('close-sidebar');
+
+  if (cartBtn) {
+    cartBtn.addEventListener('click', () => {
+      const sidebar = document.getElementById('cart-sidebar');
+      if (!sidebar) return;
+      sidebar.classList.contains('sidebar-open') ? closeCartSidebar() : (renderSidebarUniversal(), openCartSidebar());
+    });
+  }
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeCartSidebar);
+  }
+});

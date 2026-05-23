@@ -1,16 +1,4 @@
-/**
- * admin.js — UPDATED
- *
- * Changes from original:
- *   + Menu modal: imageUrl input field for food photos
- *   + renderMenuTable() shows image preview thumbnail
- *   + saveMenuItem() passes imageUrl to API
- *   + Menu GET uses ?all=true to fetch unavailable items too
- *
- * All other logic (navigation, orders, customers, kanban) is unchanged.
- */
-
-const ADMIN_API = 'https://kyukyuramen99.online/api';
+const ADMIN_API = 'http://localhost:5000/api';
 
 requireAdmin();
 
@@ -31,9 +19,10 @@ const STATUS_LABELS = {
 
 const STATUS_NEXT = { new: 'preparing', preparing: 'delivering', delivering: 'done' };
 
-let ALL_ORDERS   = [];
-let ALL_MENU     = [];
-let ORDER_FILTER = 'all';
+let ALL_ORDERS        = [];
+let ALL_MENU          = [];
+let ORDER_FILTER      = 'all';
+let PENDING_IMAGE_FILE = null;
 
 // ── Navigation ────────────────────────────────────────────────
 function showPage(pageId) {
@@ -83,7 +72,7 @@ function renderStats() {
   if (g('stat-pending')) g('stat-pending').textContent = pending;
   if (g('stat-total'))   g('stat-total').textContent   = ALL_ORDERS.length;
 
-  const user  = typeof getUser === 'function' ? getUser() : null;
+  const user   = typeof getUser === 'function' ? getUser() : null;
   const nameEl = document.getElementById('admin-username');
   if (nameEl && user) nameEl.textContent = user.name.split(' ')[0];
 }
@@ -92,7 +81,7 @@ function renderKanban() {
   const groups = { new: [], preparing: [], delivering: [], done: [] };
   ALL_ORDERS.forEach(o => { if (groups[o.status]) groups[o.status].push(o); });
 
-  const countMap  = { new:'count-new', preparing:'count-prep', delivering:'count-deliver', done:'count-done' };
+  const countMap = { new:'count-new', preparing:'count-prep', delivering:'count-deliver', done:'count-done' };
   Object.entries(countMap).forEach(([s, id]) => {
     const el = document.getElementById(id);
     if (el) el.textContent = groups[s].length;
@@ -202,11 +191,10 @@ async function updateStatus(orderId, newStatus) {
   } catch (err) { console.error('Error updating status:', err); }
 }
 
-// ── ▼ UPDATED: Menu Items (with image support) ────────────────
+// ── Menu Items ────────────────────────────────────────────────
 async function fetchMenuItems() {
   const token = getToken();
   try {
-    // Use ?all=true to see unavailable items too
     const res  = await fetch(ADMIN_API + '/menu?all=true', { headers: { Authorization: 'Bearer ' + token } });
     const data = await res.json();
     ALL_MENU   = data.items || [];
@@ -218,16 +206,13 @@ function renderMenuTable() {
   const tbody = document.getElementById('menu-items-table-body');
   if (!tbody) return;
   if (!ALL_MENU.length) {
-    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:32px;color:rgba(56,0,0,0.4);">No menu items</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:32px;color:rgba(56,0,0,0.4);">No menu items</td></tr>';
     return;
   }
   tbody.innerHTML = ALL_MENU.map(item => {
-    // ▼ NEW: show thumbnail if imageUrl exists, else emoji
-    const imgCell = item.imageUrl
-      ? `<img src="${item.imageUrl}" alt="${item.name}"
-           style="width:44px;height:44px;object-fit:cover;border-radius:10px;"
-           onerror="this.outerHTML='<span style=\\"font-size:28px;\\">${item.emoji || '🍜'}</span>'">`
-      : `<span style="font-size:28px;">${item.emoji || '🍜'}</span>`;
+  const imgCell = item.imageUrl
+  ? `<img src="${item.imageUrl}" alt="${item.name}" style="width:44px;height:44px;object-fit:cover;border-radius:10px;" onerror="this.style.display='none'">`
+  : `<span style="font-size:28px;">🍜</span>`;
 
     return '<tr>' +
       '<td>' + imgCell + '</td>' +
@@ -248,76 +233,123 @@ function openMenuItemModal(itemId) {
   const modal = document.getElementById('menu-item-modal');
   modal.style.display = 'flex';
   document.getElementById('mi-error').style.display = 'none';
+  document.getElementById('mi-file-name').textContent = 'No file chosen';
+  document.getElementById('mi-image-file').value = '';
+  PENDING_IMAGE_FILE = null;
 
-  if (itemId) {
+ if (itemId) {
     const item = ALL_MENU.find(m => m._id === itemId);
     if (!item) return;
+
+    const fullUrl = item.imageUrl
+      ? item.imageUrl.startsWith('http')
+        ? item.imageUrl
+        : `http://localhost:5000${item.imageUrl}`
+      : '';
+
     document.getElementById('menu-modal-title').textContent = 'Edit Menu Item';
-    document.getElementById('mi-id').value           = item._id;
-    document.getElementById('mi-name').value         = item.name;
-    document.getElementById('mi-emoji').value        = item.emoji || '';
-    document.getElementById('mi-price').value        = item.price;
-    document.getElementById('mi-category').value     = item.category;
-    document.getElementById('mi-desc').value         = item.description || '';
-    document.getElementById('mi-imageurl').value     = item.imageUrl || '';  // ▼ NEW
-    document.getElementById('mi-available').checked  = item.isAvailable;
-    updateImagePreview(item.imageUrl);
+    document.getElementById('mi-id').value          = item._id;
+    document.getElementById('mi-name').value        = item.name;
+    document.getElementById('mi-price').value       = item.price;
+    document.getElementById('mi-category').value    = item.category;
+    document.getElementById('mi-desc').value        = item.description || '';
+    document.getElementById('mi-imageurl').value    = fullUrl;
+    document.getElementById('mi-available').checked = item.isAvailable;
+    updateImagePreview(fullUrl);
   } else {
     document.getElementById('menu-modal-title').textContent = 'Add Menu Item';
-    document.getElementById('mi-id').value           = '';
-    document.getElementById('mi-name').value         = '';
-    document.getElementById('mi-emoji').value        = '';
-    document.getElementById('mi-price').value        = 99;
-    document.getElementById('mi-category').value     = 'ramen';
-    document.getElementById('mi-desc').value         = '';
-    document.getElementById('mi-imageurl').value     = '';  // ▼ NEW
-    document.getElementById('mi-available').checked  = true;
+    document.getElementById('mi-id').value          = '';
+    document.getElementById('mi-name').value        = '';
+    document.getElementById('mi-price').value       = 99;
+    document.getElementById('mi-category').value    = 'ramen';
+    document.getElementById('mi-desc').value        = '';
+    document.getElementById('mi-imageurl').value    = '';
+    document.getElementById('mi-available').checked = true;
     updateImagePreview('');
   }
 }
 
-// ▼ NEW: live image preview in modal
 function updateImagePreview(url) {
   const preview = document.getElementById('mi-img-preview');
   if (!preview) return;
   if (url) {
-    preview.innerHTML = `<img src="${url}" alt="Preview"
-      style="width:64px;height:64px;object-fit:cover;border-radius:10px;border:2px solid rgba(56,0,0,0.1);"
-      onerror="this.parentElement.innerHTML='<span style=\\"font-size:11px;color:#ab0000;\\">Invalid image URL</span>'">`;
+    preview.innerHTML = `<img src="${url}" style="width:100%;height:100%;object-fit:cover;border-radius:10px;" onerror="this.parentElement.innerHTML='🍜'"/>`;
   } else {
-    preview.innerHTML = '';
+    preview.innerHTML = '🍜';
   }
+}
+
+function handleImageUpload(input) {
+  const file = input.files[0];
+  if (!file) return;
+
+  PENDING_IMAGE_FILE = file;
+  document.getElementById('mi-file-name').textContent = file.name;
+
+  // Show local preview only, don't upload yet
+  const reader = new FileReader();
+  reader.onload = e => {
+    const preview = document.getElementById('mi-img-preview');
+    preview.innerHTML = `<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover;border-radius:10px;"/>`;
+  };
+  reader.readAsDataURL(file);
 }
 
 function closeMenuItemModal() {
   document.getElementById('menu-item-modal').style.display = 'none';
+  PENDING_IMAGE_FILE = null;
 }
 
 async function saveMenuItem() {
-  const token  = getToken();
-  const id     = document.getElementById('mi-id').value;
-  const errEl  = document.getElementById('mi-error');
-  const btn    = document.getElementById('mi-submit-btn');
+  const token = getToken();
+  const id    = document.getElementById('mi-id').value;
+  const errEl = document.getElementById('mi-error');
+  const btn   = document.getElementById('mi-submit-btn');
   errEl.style.display = 'none';
+
+  btn.disabled    = true;
+  btn.textContent = 'Saving…';
+
+  // ✅ Upload image first if there's a pending file
+  if (PENDING_IMAGE_FILE) {
+    const formData = new FormData();
+    formData.append('image', PENDING_IMAGE_FILE);
+    try {
+      console.log('Uploading to:', ADMIN_API + '/upload/menu'); // ADD THIS
+      const uploadRes  = await fetch(ADMIN_API + '/upload/menu', {
+        method:  'POST',
+        headers: { Authorization: 'Bearer ' + token },
+        body:    formData,
+      });
+      const uploadData = await uploadRes.json();
+      document.getElementById('mi-imageurl').value = uploadData.imageUrl;
+      PENDING_IMAGE_FILE = null;
+    } catch {
+      errEl.textContent   = 'Image upload failed.';
+      errEl.style.display = 'block';
+      btn.disabled  = false;
+      btn.innerHTML = '<i class="bi bi-check-lg"></i> Save Item';
+      return;
+    }
+  }
 
   const body = {
     name:        document.getElementById('mi-name').value.trim(),
-    emoji:       document.getElementById('mi-emoji').value.trim(),
+    emoji:       '🍜',
     price:       parseInt(document.getElementById('mi-price').value),
     category:    document.getElementById('mi-category').value,
     description: document.getElementById('mi-desc').value.trim(),
     isAvailable: document.getElementById('mi-available').checked,
-    imageUrl:    document.getElementById('mi-imageurl').value.trim() || null,  // ▼ NEW
+    imageUrl:    document.getElementById('mi-imageurl').value.trim() || null,
   };
 
   if (!body.name || !body.price) {
     errEl.textContent   = 'Name and price are required.';
     errEl.style.display = 'block';
+    btn.disabled  = false;
+    btn.innerHTML = '<i class="bi bi-check-lg"></i> Save Item';
     return;
   }
-
-  btn.disabled    = true;
-  btn.textContent = 'Saving…';
 
   try {
     const url    = id ? ADMIN_API + '/menu/' + id : ADMIN_API + '/menu';
@@ -395,6 +427,21 @@ function formatTimeAgo(dateStr) {
   if (diff < 86400) return Math.floor(diff / 3600) + 'h ago';
   return new Date(dateStr).toLocaleDateString('en-PH');
 }
+
+// ── Init ──────────────────────────────────────────────────────
+// Remember last page on refresh
+const savedPage = localStorage.getItem('adminPage') || 'dashboard';
+showPage(savedPage);
+
+// Save page on nav click
+document.querySelectorAll('.side-nav-item').forEach(item => {
+  item.addEventListener('click', function(e) {
+    e.preventDefault();
+    const page = this.dataset.page;
+    localStorage.setItem('adminPage', page);
+    showPage(page);
+  });
+});
 
 // ── Init ──────────────────────────────────────────────────────
 fetchOrders();

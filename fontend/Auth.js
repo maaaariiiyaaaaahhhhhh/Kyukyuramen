@@ -9,7 +9,7 @@
  *   + injectMyOrdersModal() — My Orders component with Cancel button (pending only)
  */
 
-const API_BASE = 'https://kyukyuramen99.online/api';
+const API_BASE = 'http://localhost:5000/api';
 
 // ── Token helpers ─────────────────────────────────────────────
 function getToken()  { return localStorage.getItem('kyu_token'); }
@@ -165,7 +165,7 @@ async function handleSignup() {
     closeAuthModal();
     refreshAuthUI();
     showToast(`<span style="font-size:18px;">🍜</span> Welcome to KyuKyu Ramen 99, ${name.split(' ')[0]}!`);
-    window.location.href = data.redirect || 'index.html';
+    window.location.href = 'index.html';
   } catch {
     showError('signup-error', 'Network error. Please try again.');
   } finally {
@@ -176,10 +176,21 @@ async function handleSignup() {
 // ── Logout ─────────────────────────────────────────────────────
 function handleLogout() {
   clearSession();
-  refreshAuthUI();
-  // ▼ NEW: logout toast
+
+  // close dropdown if still open
+  const dd = document.getElementById('user-dropdown');
+  if (dd) dd.remove();
+
   showToast(`<span style="font-size:18px;">👋</span> Thank you for ordering, come again!`);
-  if (window.location.pathname.includes('admin')) window.location.href = 'index.html';
+
+  // wait for toast to show, then reload/redirect
+  setTimeout(() => {
+    if (window.location.pathname.includes('admin')) {
+      window.location.href = 'index.html';
+    } else {
+      window.location.reload();
+    }
+  }, 1200);
 }
 
 // ── Admin guard ────────────────────────────────────────────────
@@ -380,6 +391,21 @@ function initAuthButton() {
   });
 }
 
+// ── Toggle password visibility ────────────────────────────────
+function togglePass(inputId, iconId) {
+  const input = document.getElementById(inputId);
+  const icon  = document.getElementById(iconId);
+  if (!input || !icon) return;
+  if (input.type === 'password') {
+    input.type  = 'text';
+    icon.className = 'bi bi-eye-slash';
+  } else {
+    input.type  = 'password';
+    icon.className = 'bi bi-eye';
+  }
+}
+
+
 // ── Inject auth modal HTML ─────────────────────────────────────
 function injectAuthModal() {
   if (document.getElementById('auth-modal')) return;
@@ -400,23 +426,60 @@ function injectAuthModal() {
         <button class="auth-tab-btn active" data-tab="login"  onclick="switchTab('login')">Sign In</button>
         <button class="auth-tab-btn"        data-tab="signup" onclick="switchTab('signup')">Sign Up</button>
       </div>
+
+      <!-- LOGIN FORM -->
       <div id="login-form" style="display:flex;flex-direction:column;gap:14px;">
-        <div class="auth-field"><label>Email</label>
-          <input id="login-email" type="email" class="auth-input" placeholder="you@email.com"/></div>
-        <div class="auth-field"><label>Password</label>
-          <input id="login-password" type="password" class="auth-input" placeholder="••••••••"/></div>
+        <div class="auth-field">
+          <label>Email</label>
+          <input id="login-email" type="email" class="auth-input" placeholder="you@email.com"/>
+        </div>
+        <div class="auth-field">
+          <label>Password</label>
+          <div style="position:relative;">
+            <input id="login-password" type="password" class="auth-input" placeholder="••••••••" style="padding-right:44px;width:100%;"/>
+            <button type="button" onclick="togglePass('login-password','login-pass-eye')"
+              style="position:absolute;right:12px;top:50%;transform:translateY(-50%);
+              background:none;border:none;cursor:pointer;color:rgba(56,0,0,0.4);font-size:16px;padding:0;display:flex;align-items:center;">
+              <i id="login-pass-eye" class="bi bi-eye"></i>
+            </button>
+          </div>
+        </div>
         <div id="login-error" class="auth-error" style="display:none;"></div>
         <button id="login-submit-btn" class="btn-primary-custom" onclick="handleLogin()">Sign In</button>
       </div>
+
+      <!-- SIGNUP FORM -->
       <div id="signup-form" style="display:none;flex-direction:column;gap:14px;">
-        <div class="auth-field"><label>Full Name</label>
-          <input id="signup-name" type="text" class="auth-input" placeholder="Juan dela Cruz"/></div>
-        <div class="auth-field"><label>Email</label>
-          <input id="signup-email" type="email" class="auth-input" placeholder="you@email.com"/></div>
-        <div class="auth-field"><label>Password</label>
-          <input id="signup-password" type="password" class="auth-input" placeholder="Min. 6 characters"/></div>
-        <div class="auth-field"><label>Confirm Password</label>
-          <input id="signup-confirm" type="password" class="auth-input" placeholder="Repeat password"/></div>
+        <div class="auth-field">
+          <label>Full Name</label>
+          <input id="signup-name" type="text" class="auth-input" placeholder="Juan dela Cruz"/>
+        </div>
+        <div class="auth-field">
+          <label>Email</label>
+          <input id="signup-email" type="email" class="auth-input" placeholder="you@email.com"/>
+        </div>
+        <div class="auth-field">
+          <label>Password</label>
+          <div style="position:relative;">
+            <input id="signup-password" type="password" class="auth-input" placeholder="Min. 6 characters" style="padding-right:44px;width:100%;"/>
+            <button type="button" onclick="togglePass('signup-password','signup-pass-eye')"
+              style="position:absolute;right:12px;top:50%;transform:translateY(-50%);
+              background:none;border:none;cursor:pointer;color:rgba(56,0,0,0.4);font-size:16px;padding:0;display:flex;align-items:center;">
+              <i id="signup-pass-eye" class="bi bi-eye"></i>
+            </button>
+          </div>
+        </div>
+        <div class="auth-field">
+          <label>Confirm Password</label>
+          <div style="position:relative;">
+            <input id="signup-confirm" type="password" class="auth-input" placeholder="Repeat password" style="padding-right:44px;width:100%;"/>
+            <button type="button" onclick="togglePass('signup-confirm','signup-confirm-eye')"
+              style="position:absolute;right:12px;top:50%;transform:translateY(-50%);
+              background:none;border:none;cursor:pointer;color:rgba(56,0,0,0.4);font-size:16px;padding:0;display:flex;align-items:center;">
+              <i id="signup-confirm-eye" class="bi bi-eye"></i>
+            </button>
+          </div>
+        </div>
         <div id="signup-error" class="auth-error" style="display:none;"></div>
         <button id="signup-submit-btn" class="btn-primary-custom" onclick="handleSignup()">Create Account</button>
       </div>
