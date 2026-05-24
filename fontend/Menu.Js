@@ -132,7 +132,7 @@ function renderMenuGrid(cat) {
   document.querySelectorAll('.add-to-cart-btn:not([disabled])').forEach(btn => {
     btn.addEventListener('click', function () {
       const { id, name, price, cat, img } = this.dataset;
-      addToCart(id, name, parseInt(price), img, cat);
+      addToCart(id, name, parseInt(price), '', cat, img);
       renderSidebar();
       openSidebar();
       this.innerHTML = '<i class="bi bi-check-lg"></i> Added!';
@@ -167,10 +167,10 @@ function renderSidebar() {
     const div     = document.createElement('div');
     div.className = 'sidebar-item';
     div.innerHTML = `
-      <div class="si-img-wrap">
-        <img src="${item.emoji || ''}" alt="${item.name}" class="si-img"
-          onerror="this.style.display='none';this.parentElement.classList.add('si-img-missing')"/>
-      </div>
+<div class="si-img-wrap">
+  <img src="${item.image || item.emoji || ''}" alt="${item.name}" class="si-img"
+    onerror="this.style.display='none';this.parentElement.classList.add('si-img-missing')"/>
+</div>
       <div class="si-info">
         <div class="si-name">${item.name}</div>
         <div class="si-price">₱${item.price}</div>
@@ -378,9 +378,6 @@ function injectCheckoutModal() {
         <div style="display:flex;flex-direction:column;gap:5px;">
           <label class="co-label">Payment Method</label>
           <select id="co-payment" class="auth-input" style="cursor:pointer;">
-            <option value="gcash">GCash</option>
-            <option value="maya">Maya</option>
-            <option value="credit_card">Credit / Debit Card</option>
             <option value="cash_on_delivery" selected>Cash on Delivery</option>
           </select>
         </div>

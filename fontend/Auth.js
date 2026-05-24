@@ -284,7 +284,20 @@ async function loadMyOrders() {
 
     body.innerHTML = orders.map(order => {
       const s        = STATUS_DISPLAY[order.status] || STATUS_DISPLAY.new;
-      const itemList = order.items.map(i => `${i.emoji || ''} ${i.name} x${i.quantity}`).join(' · ');
+        const itemList = order.items.map(i => {
+          const match  = typeof STATIC_PRODUCTS !== 'undefined'
+            ? STATIC_PRODUCTS.find(p => p.name === i.name)
+            : null;
+          const imgSrc = i.imageUrl || i.image || (match ? match.imageUrl : '') || '';
+          return `
+            <span style="display:inline-flex;align-items:center;gap:8px;margin-bottom:6px;">
+              <img src="${imgSrc}" alt="${i.name}"
+                style="width:36px;height:36px;border-radius:8px;object-fit:cover;
+                      background:rgba(56,0,0,0.06);flex-shrink:0;"
+                onerror="this.style.display='none'"/>
+              <span>${i.name} x${i.quantity}</span>
+            </span>`;
+}).join('');
       const date     = new Date(order.createdAt).toLocaleDateString('en-PH', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
 
       // ▼ NEW: Cancel button only if status === 'new' (pending)
@@ -307,7 +320,7 @@ async function loadMyOrders() {
             <span style="font-size:11px;font-weight:700;padding:4px 10px;border-radius:99px;
               background:${s.bg};color:${s.color};">${s.label}</span>
           </div>
-          <div style="font-size:12px;color:rgba(56,0,0,0.6);line-height:1.5;">${itemList}</div>
+          <div style="font-size:12px;color:rgba(56,0,0,0.6);line-height:1.5;display:flex;flex-direction:column;gap:4px;">${itemList}</div>
           <div style="display:flex;align-items:center;justify-content:space-between;">
             <div style="font-size:13px;font-weight:800;color:var(--accent,#ab0000);">
               ₱${order.total}

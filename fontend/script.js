@@ -129,7 +129,35 @@ function mfGoTo(index) {
   mfCurrent = index;
 }
 
+
+
 // Auto-rotate every 3s
 setInterval(() => {
   mfGoTo((mfCurrent + 1) % mfItems.length);
 }, 3000);
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const hamburgerBtn = document.querySelector('.hamburger-btn');
+      const mobileDrawer  = document.querySelector('.mobile-nav-drawer');
+      const mobileOverlay = document.querySelector('.mobile-nav-overlay');
+
+      if (!hamburgerBtn || !mobileDrawer || !mobileOverlay) return;
+
+      function toggleDrawer(open) {
+        mobileDrawer.classList.toggle('drawer-open', open);
+        mobileOverlay.classList.toggle('overlay-open', open);
+        hamburgerBtn.setAttribute('aria-expanded', open);
+        const icon = hamburgerBtn.querySelector('i');
+        if (icon) icon.className = open ? 'bi bi-x-lg' : 'bi bi-list';
+      }
+
+      hamburgerBtn.addEventListener('click', function () {
+        toggleDrawer(!mobileDrawer.classList.contains('drawer-open'));
+      });
+
+      mobileOverlay.addEventListener('click', function () { toggleDrawer(false); });
+
+      mobileDrawer.querySelectorAll('.nav-link').forEach(function (link) {
+        link.addEventListener('click', function () { toggleDrawer(false); });
+      });
+    });

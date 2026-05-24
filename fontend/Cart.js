@@ -20,13 +20,13 @@ function updateCartBadge() {
 }
 
 // ▼ UPDATED: accepts category for packaging fee
-function addToCart(id, name, price, emoji, category = '') {
+function addToCart(id, name, price, emoji, category = '', image = '') {
   const cart     = getCart();
   const existing = cart.find(i => i.id === id);
   if (existing) {
     existing.qty++;
   } else {
-    cart.push({ id, name, price, emoji, cat: category, qty: 1 });
+    cart.push({ id, name, price, emoji, cat: category, qty: 1, image });
   }
   saveCart(cart);
   updateCartBadge();
@@ -93,21 +93,21 @@ function renderSidebarUniversal() {
   cart.forEach(item => {
     const div = document.createElement('div');
     div.className = 'sidebar-item';
-    div.innerHTML = `
-      <div class="si-img-wrap">
-        <img src="${item.emoji || ''}" alt="${item.name}" class="si-img"
-          onerror="this.style.display='none';this.parentElement.classList.add('si-img-missing')"/>
-      </div>
-      <div class="si-info">
-        <div class="si-name">${item.name}</div>
-        <div class="si-price">₱${item.price}</div>
-      </div>
-      <div class="si-qty-ctrl">
-        <button class="qty-btn" onclick="universalChangeQty('${item.id}', -1)">−</button>
-        <span>${item.qty}</span>
-        <button class="qty-btn" onclick="universalChangeQty('${item.id}', 1)">+</button>
-      </div>
-      <button class="si-remove" onclick="universalRemove('${item.id}')"><i class="bi bi-x"></i></button>`;
+ div.innerHTML = `
+<div class="si-img-wrap">
+  <img src="${item.image || item.emoji || ''}" alt="${item.name}" class="si-img"
+    onerror="this.style.display='none';this.parentElement.classList.add('si-img-missing')"/>
+</div>
+  <div class="si-info">
+    <div class="si-name">${item.name}</div>
+    <div class="si-price">₱${item.price}</div>
+  </div>
+  <div class="si-qty-ctrl">
+    <button class="qty-btn" onclick="universalChangeQty('${item.id}', -1)">−</button>
+    <span>${item.qty}</span>
+    <button class="qty-btn" onclick="universalChangeQty('${item.id}', 1)">+</button>
+  </div>
+  <button class="si-remove" onclick="universalRemove('${item.id}')"><i class="bi bi-x"></i></button>`;
     itemsEl.appendChild(div);
   });
 

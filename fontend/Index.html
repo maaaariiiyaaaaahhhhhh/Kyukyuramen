@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Kyukyu Ramen 99 – Delivery</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
+  
   <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
@@ -26,6 +27,7 @@
       <a href="contact.html" class="nav-link">Contact</a>
     </nav>
     <div class="header-actions">
+
       <button class="user-btn" id="user-auth-btn" data-tooltip="Account">
         <i class="bi bi-person"></i>
       </button>
@@ -33,9 +35,26 @@
         <i class="bi bi-bag-fill"></i>
         <span class="cart-badge" id="cart-count">0</span>
       </button>
+
+      
+    <button class="hamburger-btn" aria-label="Open menu" aria-expanded="false">
+      <i class="ti ti-menu-2"></i>
+    </button>
     </div>
   </div>
 </header>
+
+</header>
+
+<nav class="mobile-nav-drawer" aria-label="Mobile navigation">
+  <a href="index.html" class="nav-link active"><i class="bi bi-house-fill"></i> Home</a>
+  <a href="menu.html"  class="nav-link"><i class="bi bi-bowl-hot-fill"></i> Menu</a>
+  <a href="about.html" class="nav-link"><i class="bi bi-info-circle-fill"></i> About</a>
+  <a href="contact.html" class="nav-link"><i class="bi bi-geo-alt-fill"></i> Contact</a>
+</nav>
+<div class="mobile-nav-overlay"></div>
+
+
 
  <!-- ======= HOME PAGE ======= -->
 <!-- RAMEN HERO: JS will move this inside #hero-compression-wrapper at runtime -->
@@ -331,11 +350,12 @@
     <span>Made with 🍜 in the Philippines</span>
   </div>
 </footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+ 
   <script src="cart.js"></script>
   <script src="auth.js"></script>
   <script src="script.js"></script>
   <script>updateCartBadge();</script>
+
+
 </body>
 </html>
